@@ -1,193 +1,163 @@
-# MERN Task Manager
+# Task Manager (MERN)
 
-A MERN application for basic tasks management.
-![image](https://user-images.githubusercontent.com/86913048/227101123-f8a35258-9c21-4479-86e8-055659ab75e2.png)
+**A full-stack MERN application enabling users to sign up / log in, manage tasks with priority, status, and due dates — built with MongoDB, Express, React and Node.**
 
-## Table of Contents
 
-- [Features](#features)
-- [Tools and Technologies](#tools-and-technologies)
-- [Dependencies](#dependencies)
-- [Dev-dependencies](#dev-dependencies)
-- [Prerequisites](#prerequisites)
-- [Installation and setup](#installation-and-setup)
-- [Backend API](#backend-api)
-- [frontend pages](#frontend-pages)
-- [npm scripts](#npm-scripts)
-- [Useful Links](#useful-links)
-- [Contact](#contact)
 
-## Features
+---
 
-### User-side features
+## 📌 Table of Contents  
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Folder Structure](#folder-structure)  
+- [Installation & Setup](#installation--setup)  
+- [Running the Project Locally](#running-the-project-locally)  
+- [API Endpoints](#api-endpoints)  
+- [Screenshots](#screenshots)  
+- [Future Enhancements](#future-enhancements)  
+- [License](#license)
 
-- Signup
-- Login
-- Logout
-- Add tasks
-- View tasks
-- Update tasks
-- Delete tasks
+---
 
-### Developer-side features
+## ✅ Features
 
-- Toasts for success and error messages
-- Form validations in frontend and backend
-- Fully Responsive Navbar
-- Token based Authentication
-- Use of 404 page for wrong urls
-- Relevant redirects
-- Global user state using Redux
-- Custom Loaders
-- Use of layout component for pages
-- Use of theme colors
-- No external CSS files needed (made using Tailwind CSS)
-- Usage of Tooltips
-- Dynamic document titles
-- Redirect to previous page after login
-- Use of various React hooks
-- Custom hook also used (useFetch)
-- Routes protection
-- Middleware for verifying the user in backend
-- Use of different HTTP status codes for sending responses
-- Standard pratices followed
+- User authentication with secure JWT + bcrypt password hashing.  
+- Full CRUD for tasks: create, read, update, and delete.  
+- Task properties: **Title**, **Description**, **Priority** (low / medium / high), **Status** (todo / in-progress / done), **Due Date**.  
+- Clean and responsive React frontend UI with badge-based priority/status visualisation.  
+- RESTful APIs and protected routes (only logged-in users can manage tasks).  
+- Separation of backend and frontend — easy to understand & deploy.  
 
-## Tools and Technologies
+---
 
-- HTML
-- CSS
-- Javascript
-- Tailwind CSS
-- Node.js
-- Express.js
-- React
-- Redux
-- Mongodb
+## 🧰 Tech Stack
 
-## Dependencies
+| Layer       | Technology |
+|-------------|------------|
+| Frontend    | React, Redux, Axios, React Router |
+| Backend     | Node.js, Express.js, MongoDB (Mongoose), JWT, bcrypt |
+| Styling     | Tailwind CSS / custom CSS (or your styling choice) |
+| Database    | MongoDB Atlas (cloud) |
+| Version Control | Git + GitHub |
 
-Following are the major dependencies of the project:
+---
 
-- axios
-- react
-- react-dom
-- react-redux
-- react-router-dom
-- react-toastify
-- redux
-- redux-thunk
-- bcrypt
-- cors
-- dotenv
-- express
-- jsonwebtoken
-- mongoose
+## 📁 Folder Structure
+/task-manager
+├── backend/ # Express API + MongoDB
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ ├── middlewares/
+│ ├── utils/
+│ ├── app.js
+│ └── .env
+├── frontend/ # React client app
+│ ├── src/
+│ ├── public/
+│ └── package.json
+├── .gitignore
+└── README.md
 
-## Dev-dependencies
 
-Following are the major dev-dependencies of the project:
+This separation keeps frontend and backend independent — ideal for maintenance or separate deployment. :contentReference[oaicite:0]{index=0}
 
-- nodemon
-- concurrently
+---
 
-## Prerequisites
+## 🛠️ Installation & Setup
 
-- Node.js must be installed on the system.
-- You should have a MongoDB database.
-- You should have a code editor (preferred: VS Code)
+> **Prerequisites**: Node.js and npm installed  
 
-## Installation and Setup
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/Tanmay0405/task-manager.git
+   cd task-manager
+2. Setup backend
+    ```bash
+   cd backend
+   npm install
 
-1. Install all the dependencies
+3.Create a .env file and add:
 
-   ```sh
-   npm run install-all
-   ```
+MONGODB_URL=your_mongo_db_connection_string
+ACCESS_TOKEN_SECRET=someVeryStrongSecret
 
-2. Create a file named ".env" inside the backend folder. Add data from .env.example file and substitute your credentials there.
 
-3. Start the application
+4. Setup frontend
+    ```bash
+   cd ../frontend
+   npm install
 
-   ```sh
-   npm run dev
-   ```
+Running the Project Locally
 
-4. Go to http://localhost:3000
+From project root, open two consoles:
 
-## Backend API
+Backend
 
-<pre>
-- POST     /api/auth/signup
-- POST     /api/auth/login
-- GET      /api/tasks
-- GET      /api/tasks/:taskId
-- POST     /api/tasks
-- PUT      /api/tasks/:taskId
-- DELETE   /api/tasks/:taskId
-- GET      /api/profile
-</pre>
+   cd backend
+   npm start
 
-## Frontend pages
 
-<pre>
-- /                 Home Screen (Public home page for guests and private dashboard (tasks) for logged-in users)
-- /signup           Signup page
-- /login            Login page
-- /tasks/add        Add new task
-- /tasks/:taskId    Edit a task
-</pre>
+Frontend
 
-## npm scripts
+   cd frontend
+   npm start
 
-At root:
 
-- `npm run dev`: Starts both backend and frontend
-- `npm run dev-server`: Starts only backend
-- `npm run dev-client`: Starts only frontend
-- `npm run install-all`: Installs all dependencies and dev-dependencies required at root, at frontend and at backend.
+Now open: http://localhost:3000
+ in browser.
+Backend runs at http://localhost:5000
 
-Inside frontend folder:
+🔗 API Endpoints
+| Method | Path               | Description                     | Auth Required |
+| ------ | ------------------ | ------------------------------- | ------------- |
+| POST   | `/api/auth/signup` | Register new user               | No            |
+| POST   | `/api/auth/login`  | Login user, returns JWT         | No            |
+| GET    | `/api/profile/`    | Get user profile info           | Yes           |
+| GET    | `/api/tasks/`      | Get all tasks of logged-in user | Yes           |
+| POST   | `/api/tasks/`      | Create new task                 | Yes           |
+| GET    | `/api/tasks/:id`   | Get single task                 | Yes           |
+| PUT    | `/api/tasks/:id`   | Update task                     | Yes           |
+| DELETE | `/api/tasks/:id`   | Delete task                     | Yes           |
 
-- `npm start`: Starts frontend in development mode
-- `npm run build`: Builds the frontend for production to the build folder
-- `npm test`: Launches the test runner in the interactive watch mode
-- `npm run eject`: This will remove the single build dependency from the frontend.
+📸 Screenshots
 
-Inside backend folder:
+<img width="1919" height="867" alt="image" src="https://github.com/user-attachments/assets/dbd9dab7-c85e-4a5a-a6ae-68e35ef61661" />
 
-- `npm run dev`: Starts backend using nodemon.
-- `npm start`: Starts backend without nodemon.
+<img width="1919" height="871" alt="image" src="https://github.com/user-attachments/assets/dadc9b0a-2748-485b-a236-1b113769a898" />
 
-## Useful Links
+<img width="1919" height="864" alt="image" src="https://github.com/user-attachments/assets/55136e07-5fb6-4596-9f91-f3c857d48ebf" />
 
-- This project
+🚧 Future Enhancements
 
-  - Github Repo: https://github.com/aayush301/MERN-task-manager
+Add user profile edit options
 
-- Official Docs
+Add due-date reminders / email notifications
 
-  - Reactjs docs: https://reactjs.org/docs/getting-started.html
-  - npmjs docs: https://docs.npmjs.com/
-  - Mongodb docs: https://docs.mongodb.com/manual/introduction/
-  - Github docs: https://docs.github.com/en/get-started/quickstart/hello-world
+Pagination and sorting for tasks
 
-- Youtube tutorials
+Dark / light mode toggle
 
-  - Expressjs: https://youtu.be/L72fhGm1tfE
-  - React: https://youtu.be/EHTWMpD6S_0
-  - Redux: https://youtu.be/1oU_YGhT7ck
+Deploy backend and frontend on production (Heroku / Vercel / Render)
 
-- Download links
+Add unit/integration tests
 
-  - Nodejs download: https://nodejs.org/
-  - VS Code download: https://code.visualstudio.com/
+🎓 Why This Project Matters
 
-- Cheatsheets
-  - Git cheatsheet: https://education.github.com/git-cheat-sheet-education.pdf
-  - VS Code keyboard shortcuts: https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
-  - CSS Selectors Cheatsheet: https://frontend30.com/css-selectors-cheatsheet/
+This project demonstrates how to build a full-stack, production-ready web application using the popular MERN stack.
+It shows you understand:
 
-## Contact
+RESTful API design
 
-- Email: aayush5521186@gmail.com
-- Linkedin: https://www.linkedin.com/in/aayush12/
+Authentication with JWT
+
+Secure password storage
+
+Clean frontend-backend separation
+
+React + Redux state management
+
+CRUD operations with complex data models
+
+Deployment-ready architecture
+
